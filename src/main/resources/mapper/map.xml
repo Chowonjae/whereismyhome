@@ -3,6 +3,20 @@
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 	
 <mapper namespace="com.ssafy.map.model.dao.MapDao">
+
+	<select id="getSidos" resultType="sidoGugunCodeDto">
+		select left(sidoCode,2) sidoCode, sidoName
+		from sidocode
+		order by sidoCode
+	</select>
+	
+	<select id="getGugunInSido" parameterType="string" resultType="sidoGugunCodeDto">
+		select left(gugunCode,5) gugunCode, gugunName
+		from guguncode
+		where left(gugunCode,2) = #{sido}
+		order by gugunCode
+	</select>
+
 	<select id="search" parameterType="map" resultType="mapDto">
 		select * from houseview
 		<where>
@@ -54,14 +68,14 @@
 		
 		select name, address, weekday, saterday, sunday, phonenumber, conv
 		from corona
-		where sido = #{sido} and gugun = #{gugun}
+		where left(sido,2) = #{sido} and left(gugun,5) = #{gugun}
 	</select>
 
-	<select id="hospital" parameterType="map" resultType="hospitalDto">
+	<select id="hospital" parameterType="String" resultType="hospitalDto">
 		
 		select name, address, phonenumber, type
 		from hospital
-		where sido = left(#{sido},2) and gugun = #{gugun}
+		where left(gugun,5) = #{gugun}
 	</select>
 	
 	<select id="getCoffee" parameterType="map" resultType="starBucksDto" >
