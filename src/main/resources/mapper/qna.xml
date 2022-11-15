@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.board.model.dao.QnABoardDao">
+
+	<resultMap type="boardDto" id="article">
+		<result column="article_no" property="articleNo"/>
+		<result column="user_id" property="userId"/>
+		<result column="user_name" property="userName"/>
+		<result column="subject" property="subject"/>
+		<result column="content" property="content"/>
+		<result column="hit" property="hit"/>
+		<result column="register_time" property="registerTime"/>
+	</resultMap>
+
+	<insert id="writeArticle" parameterType="boardDto">
+		insert into qnaboard (user_id, subject, content, hit, register_time)
+		values (#{userId}, #{subject}, #{content}, 0, now())
+	</insert>
+	
+	<select id="listArticle" parameterType="boardParameterDto" resultMap="article">
+		select b.article_no, b.user_id, b.subject, b.content, b.hit, m.user_name, b.register_time
+		from qnaboard b, members m
+		where b.user_id = m.user_id
+		<if test="word != null and word != ''">
+			<if test="key == 'subject'">
+				and b.subject like concat('%', #{word}, '%')
+			</if>
+			<if test="key != 'subject'">
+				and ${key} = #{word}
+			</if>
+		</if>
+		order by b.article_no desc
+		limit #{start}, #{spp}
+	</select>
+	
+	<select id="getTotalCount" parameterType="map" resultType="int">
+		select count(article_no)
+		from qnaboard
+		<if test="word != null and word != ''">
+			<if test="key == 'subject'">
+				where subject like concat('%', #{word}, '%')
+			</if>
+			<if test="key != 'subject'">
+				where ${key} = #{word}
+			</if>
+		</if>
+	</select>
+	
+	<select id="getArticle" parameterType="int" resultMap="article">
+		select b.article_no, b.user_id, b.subject, b.content, b.hit, b.register_time, m.user_name 
+		from qnaboard b, members m
+		where b.user_id = m.user_id
+		and b.article_no = #{articleNo}
+	</select>
+	
+	<update id="updateHit" parameterType="int">
+		update qnaboard
+		set hit = hit + 1
+		where article_no = #{articleNo}
+	</update>
+	
+	<update id="modifyArticle" parameterType="boardDto">
+		update qnaboard
+		set subject = #{subject}, content = #{content}
+		where article_no = #{articleNo}
+	</update>
+	
+	<delete id="deleteMemo" parameterType="int">
+		delete from memo
+		where article_no = #{articleNo}
+	</delete>
+	
+	<delete id="deleteArticle" parameterType="int">
+		delete from qnaboard
+		where article_no = #{articleNo}
+	</delete>
+
+</mapper>
+

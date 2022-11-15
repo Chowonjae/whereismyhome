@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+	
+<mapper namespace="com.ssafy.map.model.dao.MapDao">
+	<select id="search" parameterType="map" resultType="mapDto">
+		select * from houseview
+		<where>
+			dongCode = #{regCode}
+			<if test="year != null and month != null">
+			 and dealYear = #{year}
+			 and dealMonth = #{month}
+			</if>
+		</where>
+	</select>
+	
+	<select id="getInterDto" parameterType="String" resultType="interDto">
+		select * from inter_area
+		where userId = #{userId}
+	</select>
+	
+	<insert id="addinter" parameterType="interDto">
+		insert into inter_area(userId, dongCode, dongName)
+		values(#{userId},#{dongCode}, (select concat(sidoName, " ", IFNULL(gugunname,"")," ",IFNULL(dongName,''))
+						 from dongcode
+						 where dongCode = #{dongCode})
+			)
+	</insert>
+
+	<select id="interDupCheck" parameterType="map" resultType="int">
+		select count(*) from inter_area
+		where userId = #{userId} and dongCode = #{dongCode}
+	</select>
+
+	<delete id="delinter" parameterType = "map">
+		delete from inter_area
+		where userId = #{userId} and dongCode = #{dongCode}
+	</delete>
+	
+	
+	<select id="getSido" parameterType="String" resultType="string">
+		
+		select sidoName from dongcode
+		where dongCode = #{dongCode}
+	</select>
+	
+	<select id="getGugun" parameterType="String" resultType="string">
+		
+		select gugunName from dongcode
+		where dongCode = #{dongCode}
+	</select>
+
+	<select id="corona" parameterType="map" resultType="coronaDto">
+		
+		select name, address, weekday, saterday, sunday, phonenumber, conv
+		from corona
+		where sido = #{sido} and gugun = #{gugun}
+	</select>
+
+	<select id="hospital" parameterType="map" resultType="hospitalDto">
+		
+		select name, address, phonenumber, type
+		from hospital
+		where sido = left(#{sido},2) and gugun = #{gugun}
+	</select>
+	
+	<select id="getCoffee" parameterType="map" resultType="starBucksDto" >
+		select name, lat,lng, st_distance_sphere(point(#{lng},#{lat}),point(lng,lat)) as dist
+		from starbucks
+		where <![CDATA[st_distance_sphere(point(#{lng},#{lat}),point(lng,lat))<=1000]]>
+		order by dist
+		limit 1
+	</select>
+	
+	<select id="getMetro" parameterType="map" resultType="metroDto">
+		select name, lat,lng, st_distance_sphere(point(#{lng},#{lat}),point(lng,lat)) as dist
+		from metro
+		where <![CDATA[st_distance_sphere(point(#{lng},#{lat}),point(lng,lat))<=1000]]>
+		order by dist
+		limit 1
+	</select>	
+	
+</mapper>

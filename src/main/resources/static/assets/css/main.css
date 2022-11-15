@@ -1,0 +1,89 @@
+*{
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* header{
+  height: 30px;
+} */
+a{
+  text-decoration: none;
+}
+main{
+  height:auto;
+}
+.dropdown-menu{
+	width:250px;
+}
+.main-banner{
+  background-image: linear-gradient( rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3) ),url("https://images.pexels.com/photos/186077/pexels-photo-186077.jpeg?cs=srgb&dl=pexels-binyamin-mellish-186077.jpg&fm=jpg");
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height:700px;
+}
+.search-box{
+  align-self: flex-end;
+  opacity: 1;
+}
+.search-box>div{
+  display: flex;
+  align-content: space-between;
+  align-items: center;
+  justify-content: center;
+
+}
+.form-group{
+  min-width: 200px;
+  height:50px;
+}
+.icon-wrap{
+  position:absolute;
+  top:0;
+  left:0;
+  width:40px;
+  height:100%;
+}
+.icon-wrap svg {
+  fill: #555;
+  width: 14px;
+  height: 14px;
+}
+
+footer{
+  height: 100px;
+  display: flex;
+  align-items: center;
+}
+footer>*{
+  width:100%;
+}
+.search-result{
+  display: flex;
+  flex-wrap:wrap;
+  height:700px;
+}
+.table-box{
+  overflow: auto;
+  height:100%;
+}
+tr{
+  text-align: left;
+  border-bottom: 1px solid gray;
+}
+.apt-name{
+  font-weight: bold;
+}
+.apt-space, .apt-price{
+  font-size: 14px;
+}
+.apt-date{
+  font-size: 14px;
+  color: gray;
+}
+.nav{
+  display:flex;
+  justify-content: flex-end;
+  align-items: center;
+}
