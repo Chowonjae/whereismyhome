@@ -47,7 +47,7 @@ public class MapRestController {
 	}	
 	@GetMapping("/dong")
 	public ResponseEntity<List<SidoGugunCodeDto>> dong(
-			@RequestParam("sido") @ApiParam(value = "구군코드.", required = true) String gugun) throws Exception {
+			@RequestParam("gugun") @ApiParam(value = "구군코드.", required = true) String gugun) throws Exception {
 		System.out.println("여기 왔음");
 		return new ResponseEntity<List<SidoGugunCodeDto>>(mapService.getDongInGugun(gugun), HttpStatus.OK);
 	}	
