@@ -17,10 +17,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ssafy.map.model.AptDto;
 import com.ssafy.map.model.CoronaDto;
+import com.ssafy.map.model.DealDto;
 import com.ssafy.map.model.HospitalDto;
 import com.ssafy.map.model.InterDto;
-import com.ssafy.map.model.MapDto;
 import com.ssafy.map.model.SidoGugunCodeDto;
 import com.ssafy.map.model.service.MapService;
 
@@ -36,44 +37,43 @@ public class MapRestController {
 
 	@GetMapping("/sido")
 	public ResponseEntity<List<SidoGugunCodeDto>> sido() throws Exception {
-		System.out.println("여기 왔음");
 		return new ResponseEntity<List<SidoGugunCodeDto>>(mapService.getSido(), HttpStatus.OK);
 	}
 
 	@GetMapping("/gugun")
 	public ResponseEntity<List<SidoGugunCodeDto>> gugun(
 			@RequestParam("sido") @ApiParam(value = "시도코드.", required = true) String sido) throws Exception {
-		System.out.println("여기도 왔음");
 		return new ResponseEntity<List<SidoGugunCodeDto>>(mapService.getGugunInSido(sido), HttpStatus.OK);
 	}	
-	
-	// 거래내역 조회
+	@GetMapping("/dong")
+	public ResponseEntity<List<SidoGugunCodeDto>> dong(
+			@RequestParam("sido") @ApiParam(value = "구군코드.", required = true) String gugun) throws Exception {
+		System.out.println("여기 왔음");
+		return new ResponseEntity<List<SidoGugunCodeDto>>(mapService.getDongInGugun(gugun), HttpStatus.OK);
+	}	
+	// 지역 내 아파트 조회
 	@GetMapping(value = "/search/{dong}")
-	public ResponseEntity<?> searchDong(@PathVariable String dong){
+	public ResponseEntity<?> searchArea(@PathVariable String dong){
 		try {
-			Map<String,String> map = new HashMap<String,String>();
-			map.put("regCode", dong);
-			List<MapDto> list = mapService.search(map);
-			return new ResponseEntity<List<MapDto>>(list, HttpStatus.OK);
+			List<AptDto> list = mapService.searchArea(dong);
+			return new ResponseEntity<List<AptDto>>(list, HttpStatus.OK);
 		} catch (Exception e) {
 			return exceptionHandling(e);
 		}
 	}
-	@GetMapping(value = "/search/{dong}/{year}/{month}")
-	public ResponseEntity<?> search(@PathVariable String dong,@PathVariable String year,@PathVariable String month){
+	// 해당 아파트 거래내역 조회
+	@GetMapping(value = "/search/apt/{aptCode}")
+	public ResponseEntity<?> searchApt(@PathVariable String aptCode){
 		try {
-			Map<String,String> map = new HashMap<String,String>();
-			map.put("regCode", dong);
-			map.put("year", year);
-			map.put("month", month);
-			List<MapDto> list = mapService.search(map);
-			return new ResponseEntity<List<MapDto>>(list, HttpStatus.OK);
+			List<DealDto> list = mapService.searchApt(aptCode);
+			return new ResponseEntity<List<DealDto>>(list, HttpStatus.OK);
 		} catch (Exception e) {
 			return exceptionHandling(e);
 		}
-	}
+	}	
+	
 	// 관심지역 조회
-	@GetMapping(value = "/search/inter/{userId}")
+	@GetMapping(value = "/inter/{userId}")
 	public ResponseEntity<?> getInterDto(@PathVariable String userId){
 		try {
 			List<InterDto> list = mapService.getInterDto(userId);
@@ -82,7 +82,7 @@ public class MapRestController {
 			return exceptionHandling(e);
 		}
 	}	
-	@PostMapping(value = "/search/inter")
+	@PostMapping(value = "/inter")
 	public ResponseEntity<?> addinter(@RequestBody InterDto interDto){
 		try {
 			System.out.println(interDto);
@@ -94,7 +94,7 @@ public class MapRestController {
 		}
 	}
 
-	@GetMapping(value = "/search/{userId}/{dongCode}")
+	@GetMapping(value = "/inter/{userId}/{dongCode}")
 	public ResponseEntity<?> interDupCheck(@PathVariable String userId, @PathVariable String dongCode){
 		try {
 			Map<String,String> map = new HashMap<String,String>();
@@ -111,7 +111,7 @@ public class MapRestController {
 		}
 	}
 	
-	@DeleteMapping(value = "/search/{userId}/{dongCode}")
+	@DeleteMapping(value = "/inter/{userId}/{dongCode}")
 	public ResponseEntity<?> delinter(@PathVariable String userId, @PathVariable String dongCode){
 		try {
 			Map<String,String> map = new HashMap<String,String>();

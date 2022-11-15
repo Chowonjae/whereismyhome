@@ -14,26 +14,20 @@
 		select left(gugunCode,5) gugunCode, gugunName
 		from guguncode
 		where left(gugunCode,2) = #{sido}
-		order by gugunName
-	</select>
-	
-	<select id="getDongInGugun" parameterType="string" resultType="sidoGugunCodeDto">
-		select dongCode, dongName
-		from dongcode
-		where left(dongCode,5) = #{gugun} and dongName is not null
-		order by dongName
+		order by gugunCode
 	</select>
 
-	<select id="searchArea" parameterType="String" resultType="aptDto">
-		select aptCode, buildYear, apartmentName, lng,lat, dongCode
-		from houseinfo
-		where dongCode = #{regCode}
+	<select id="search" parameterType="map" resultType="mapDto">
+		select * from houseview
+		<where>
+			dongCode = #{regCode}
+			<if test="year != null and month != null">
+			 and dealYear = #{year}
+			 and dealMonth = #{month}
+			</if>
+		</where>
 	</select>
-	<select id="searchApt" parameterType="String" resultType="dealDto">
-		select no,aptCode,area, dealAmount, dealYear, dealMonth, dealDay
-		from housedeal
-		where aptCode = #{aptCode}
-	</select>	
+	
 	<select id="getInterDto" parameterType="String" resultType="interDto">
 		select * from inter_area
 		where userId = #{userId}
@@ -56,6 +50,19 @@
 		delete from inter_area
 		where userId = #{userId} and dongCode = #{dongCode}
 	</delete>
+	
+	
+	<select id="getSido" parameterType="String" resultType="string">
+		
+		select sidoName from dongcode
+		where dongCode = #{dongCode}
+	</select>
+	
+	<select id="getGugun" parameterType="String" resultType="string">
+		
+		select gugunName from dongcode
+		where dongCode = #{dongCode}
+	</select>
 
 	<select id="corona" parameterType="map" resultType="coronaDto">
 		
