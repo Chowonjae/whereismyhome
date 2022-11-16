@@ -58,7 +58,7 @@
 		</if>
 	</sql>
 
-	<select id="listArticle" parameterType="map" resultMap="article">
+	<select id="listArticle" parameterType="boardParameterDto" resultMap="article">
 		select b.article_no, b.user_id, b.subject, b.content, b.hit, b.register_time, m.user_name
 		from board b, members m 
 		where b.user_id = m.user_id
@@ -87,10 +87,10 @@
 		where article_no = #{articleNo}
 	</select>
 	
-	<select id="soundSearcherListArticle" parameterType="map" resultMap="article">
+	<select id="soundSearcherListArticle" parameterType="boardParameterDto" resultMap="article">
 		select article_no, user_id, subject, content, hit, register_time
 		from board
-		order by article_no desc limit #{start}, #{listsize}
+		order by article_no desc
 	</select>
 	
 	<update id="updateHit" parameterType="int">

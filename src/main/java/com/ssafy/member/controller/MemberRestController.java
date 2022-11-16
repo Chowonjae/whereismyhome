@@ -61,6 +61,7 @@ public class MemberRestController {
 	public ResponseEntity<?> login(@RequestBody MemberDto memberDto){
 		try {
 			if(memberDto != null) {
+				System.out.println(123);
 				MemberDto temp = memberService.loginMember(memberDto);
 				System.out.println(temp.toString());
 				return new ResponseEntity<MemberDto>(temp, HttpStatus.OK);

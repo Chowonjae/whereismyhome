@@ -40,10 +40,18 @@
 		limit #{start}, #{spp}
 	</select>
 	
+	<!-- <select id="listArticle" parameterType="boardParameterDto" resultMap="article">
+		select b.article_no, b.user_id, b.subject, b.content, b.hit, b.register_time, m.user_name
+		from qnaboard b, members m 
+		where b.user_id = m.user_id
+		<include refid="search"></include>
+		order by b.article_no desc
+	</select> -->
+	
 	<select id="soundSearcherListArticle" parameterType="map" resultMap="article">
 		select article_no, user_id, subject, content, hit, register_time
 		from qnaboard
-		order by article_no desc limit #{start}, #{listsize}
+		order by article_no desc
 	</select>
 	
 	<select id="getTotalCount" parameterType="map" resultType="int">

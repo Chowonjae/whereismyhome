@@ -56,11 +56,12 @@ public class BoardRestController {
 		return new ResponseEntity<BoardDto>(boardService.getArticle(articleno), HttpStatus.OK);
 	}
 	
-	@GetMapping(value = "/{작성자}/word")
-	public ResponseEntity<?> getSearchList(@PathVariable("작성자") String key, @PathVariable("word") String word) throws Exception{
+	@GetMapping(value = "/{key}/{word}")
+	public ResponseEntity<?> getSearchList(@PathVariable("key") String key, @PathVariable("word") String word) throws Exception{
 		BoardParameterDto boardParameterDto = new BoardParameterDto();
 		boardParameterDto.setKey(key);
 		boardParameterDto.setWord(word);
+		System.out.println(boardParameterDto.toString());
 		List<BoardDto> list = boardService.listArticle(boardParameterDto);
 		String enWord = "";
 		String koWord = "";
@@ -73,6 +74,7 @@ public class BoardRestController {
 				boardParameterDto.setWord(koWord);
 				list = boardService.listArticle(boardParameterDto);
 				if(list.size() == 0) {
+					boardParameterDto.setWord(word);
 					list = boardService.choListArticle(boardParameterDto);
 				}
 			}

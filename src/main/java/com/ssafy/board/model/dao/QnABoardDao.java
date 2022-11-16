@@ -21,7 +21,7 @@ public interface QnABoardDao {
 	void deleteMemo(int articleno) throws SQLException;
 	List<BoardDto> soundSearcherListArticle(BoardParameterDto boardParameterDto) throws SQLException;
 	int deleteArticle(int articleno) throws SQLException;
-	List<ReplyDto> getReply(int articleno);
-	int registReply(ReplyDto replyDto);
+	List<ReplyDto> getReply(int articleno) throws SQLException;
+	int registReply(ReplyDto replyDto) throws SQLException;
 	
 }
