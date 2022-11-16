@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.board.model.BoardDto;
 import com.ssafy.board.model.BoardParameterDto;
+import com.ssafy.board.model.ReplyDto;
+import com.ssafy.board.model.service.ConsonantSearcherService;
 import com.ssafy.board.model.service.QnABoardService;
 
 import io.swagger.annotations.Api;
@@ -35,6 +37,8 @@ public class QnABoardRestController {
 
 	@Autowired
 	private QnABoardService qnAboardService;
+	@Autowired
+	private ConsonantSearcherService searcherService;
 
 	@ApiOperation(value = "게시판 글작성", notes = "새로운 게시글 정보를 입력한다. 그리고 DB입력 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PostMapping
@@ -54,12 +58,52 @@ public class QnABoardRestController {
 		return new ResponseEntity<List<BoardDto>>(qnAboardService.listArticle(boardParameterDto), HttpStatus.OK);
 	}
 	
+	@GetMapping(value = "/{key}/{word}")
+	public ResponseEntity<?> getSearchList(@PathVariable("key") String key, @PathVariable("word") String word) throws Exception{
+		BoardParameterDto boardParameterDto = new BoardParameterDto();
+		boardParameterDto.setKey(key);
+		boardParameterDto.setWord(word);
+		List<BoardDto> list = qnAboardService.listArticle(boardParameterDto);
+		String enWord = "";
+		String koWord = "";
+		if(list.size() == 0) {
+			enWord = searcherService.engToKor(word);
+			boardParameterDto.setWord(enWord);
+			list = qnAboardService.listArticle(boardParameterDto);
+			if(list.size() == 0) {
+				koWord = searcherService.koToEn(word);
+				boardParameterDto.setWord(koWord);
+				list = qnAboardService.listArticle(boardParameterDto);
+				if(list.size() == 0) {
+					list = qnAboardService.choListArticle(boardParameterDto);
+				}
+			}
+		}
+		return new ResponseEntity<List<BoardDto>>(list, HttpStatus.OK);
+	}
+	
 	@ApiOperation(value = "게시판 글보기", notes = "글번호에 해당하는 게시글의 정보를 반환한다.", response = BoardDto.class)
 	@GetMapping("/{articleNo}")
 	public ResponseEntity<BoardDto> getArticle(@PathVariable("articleNo") @ApiParam(value = "얻어올 글의 글번호.", required = true) int articleno) throws Exception {
 		logger.info("getArticle - 호출 : " + articleno);
 		qnAboardService.updateHit(articleno);
 		return new ResponseEntity<BoardDto>(qnAboardService.getArticle(articleno), HttpStatus.OK);
+	}
+	
+	@GetMapping("/repl/{articleNo}")
+	public ResponseEntity<?> getReply(@PathVariable("articleNo") int articleno) throws Exception {
+		logger.info("getReply - 호출 : " + articleno);
+		return new ResponseEntity<List<ReplyDto>>(qnAboardService.getReply(articleno), HttpStatus.OK);
+	}
+	
+	@PostMapping("/repl")
+	public ResponseEntity<?> registReply(@RequestBody ReplyDto replyDto) throws Exception {
+//		replyDto.setUser_id("admin");
+		logger.info("registReply - 호출 : ");
+		if(qnAboardService.registReply(replyDto)) {
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
 	
 	@ApiOperation(value = "게시판 글수정", notes = "수정할 게시글 정보를 입력한다. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)

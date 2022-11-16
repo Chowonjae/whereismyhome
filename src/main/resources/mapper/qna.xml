@@ -19,6 +19,11 @@
 		values (#{userId}, #{subject}, #{content}, 0, now())
 	</insert>
 	
+	<insert id="registReply" parameterType="replyDto">
+		insert into memo (user_id, comment, memo_time, article_no)
+		values (#{user_id}, #{comment}, now(), #{article_no})
+	</insert>
+	
 	<select id="listArticle" parameterType="boardParameterDto" resultMap="article">
 		select b.article_no, b.user_id, b.subject, b.content, b.hit, m.user_name, b.register_time
 		from qnaboard b, members m
@@ -33,6 +38,12 @@
 		</if>
 		order by b.article_no desc
 		limit #{start}, #{spp}
+	</select>
+	
+	<select id="soundSearcherListArticle" parameterType="map" resultMap="article">
+		select article_no, user_id, subject, content, hit, register_time
+		from qnaboard
+		order by article_no desc limit #{start}, #{listsize}
 	</select>
 	
 	<select id="getTotalCount" parameterType="map" resultType="int">
@@ -53,6 +64,13 @@
 		from qnaboard b, members m
 		where b.user_id = m.user_id
 		and b.article_no = #{articleNo}
+	</select>
+	
+	<!-- 수정 -->
+	<select id="getReply" parameterType="int" resultType="replyDto">
+		select memo_no, user_id, comment, memo_time, article_no 
+		from memo
+		where article_no = #{articleNo}
 	</select>
 	
 	<update id="updateHit" parameterType="int">

@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.ssafy.board.model.BoardDto;
 import com.ssafy.board.model.BoardParameterDto;
+import com.ssafy.board.model.ReplyDto;
 import com.ssafy.util.PageNavigation;
 
 @Service
@@ -18,5 +19,8 @@ public interface QnABoardService {
 	void updateHit(int articleno) throws Exception;
 	boolean modifyArticle(BoardDto boardDto) throws Exception;
 	boolean deleteArticle(int articleno) throws Exception;
+	List<ReplyDto> getReply(int articleno) throws Exception;
+	boolean registReply(ReplyDto replyDto) throws Exception;
+	List<BoardDto> choListArticle(BoardParameterDto boardParameterDto) throws Exception;
 	
 }

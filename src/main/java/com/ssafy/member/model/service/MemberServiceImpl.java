@@ -70,7 +70,6 @@ public class MemberServiceImpl implements MemberService{
 		
 		// user 정보 받아오기 , 비밀번호 제외
 		MemberDto userInfo = memberDao.getUserInfo(memberDto);
-		System.out.println(userInfo);
 		
 		return userInfo;
 	}

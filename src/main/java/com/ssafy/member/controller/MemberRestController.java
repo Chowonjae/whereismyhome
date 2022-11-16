@@ -57,17 +57,19 @@ public class MemberRestController {
 	}
 	
 	// 로그인
-//	@PostMapping(value = "/user/login")
-//	public ResponseEntity<?> login(@RequestBody MemberDto memberDto){
-//		try {
-//			MemberDto result = new MemberDto();
-//			if(result != null) {
-//				
-//			}
-//		}catch(Exception e) {
-//			return exceptionHandling(e);
-//		}
-//	}
+	@PostMapping(value = "/user/login")
+	public ResponseEntity<?> login(@RequestBody MemberDto memberDto){
+		try {
+			if(memberDto != null) {
+				MemberDto temp = memberService.loginMember(memberDto);
+				System.out.println(temp.toString());
+				return new ResponseEntity<MemberDto>(temp, HttpStatus.OK);
+			}
+		}catch(Exception e) {
+			return exceptionHandling(e);
+		}
+		return null;
+	}
 	
 //	@DeleteMapping("/user/delete")
 //	public ResponseEntity<?> delete()
