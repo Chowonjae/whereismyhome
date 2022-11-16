@@ -36,11 +36,11 @@
 	</select>	
 	<select id="getInterDto" parameterType="String" resultType="interDto">
 		select * from inter_area
-		where userId = #{userId}
+		where userId = #{userId};
 	</select>
 	
 	<insert id="addinter" parameterType="interDto">
-		insert into inter_area(userId, dongCode, dongName)
+		insert into inter_area(userId, dongCode,dongName)
 		values(#{userId},#{dongCode}, (select concat(sidoName, " ", IFNULL(gugunname,"")," ",IFNULL(dongName,''))
 						 from dongcode
 						 where dongCode = #{dongCode})
