@@ -28,6 +28,7 @@
 		select aptCode, buildYear, apartmentName, lng,lat, dongCode
 		from houseinfo
 		where dongCode = #{regCode}
+		order by apartmentName
 	</select>
 	<select id="searchApt" parameterType="String" resultType="dealDto">
 		select no,aptCode,area, dealAmount, dealYear, dealMonth, dealDay
@@ -36,7 +37,8 @@
 	</select>	
 	<select id="getInterDto" parameterType="String" resultType="interDto">
 		select * from inter_area
-		where userId = #{userId};
+		where userId = #{userId}
+		order by dongName
 	</select>
 	
 	<insert id="addinter" parameterType="interDto">
