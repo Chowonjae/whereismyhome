@@ -115,8 +115,20 @@ public class QnABoardServiceImpl implements QnABoardService {
 	@Override
 	@Transactional
 	public boolean deleteArticle(int articleno) throws Exception {
-		qnAboardDao.deleteMemo(articleno);
+		qnAboardDao.deleteArticle(articleno);
 		return qnAboardDao.deleteArticle(articleno) == 1;
+	}
+
+	@Override
+	public boolean modifyReply(ReplyDto replyDto) throws Exception {
+		// TODO Auto-generated method stub
+		return qnAboardDao.modifyReply(replyDto) == 1;
+	}
+
+	@Override
+	public boolean deleteReply(int replyNo) throws Exception {
+		// TODO Auto-generated method stub
+		return qnAboardDao.deleteReply(replyNo) == 1;
 	}
 
 

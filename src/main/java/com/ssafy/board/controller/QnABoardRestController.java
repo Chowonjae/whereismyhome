@@ -91,22 +91,6 @@ public class QnABoardRestController {
 		return new ResponseEntity<BoardDto>(qnAboardService.getArticle(articleno), HttpStatus.OK);
 	}
 	
-	@GetMapping("/repl/{articleNo}")
-	public ResponseEntity<?> getReply(@PathVariable("articleNo") int articleno) throws Exception {
-		logger.info("getReply - 호출 : " + articleno);
-		return new ResponseEntity<List<ReplyDto>>(qnAboardService.getReply(articleno), HttpStatus.OK);
-	}
-	
-	@PostMapping("/repl")
-	public ResponseEntity<?> registReply(@RequestBody ReplyDto replyDto) throws Exception {
-//		replyDto.setUser_id("admin");
-		logger.info("registReply - 호출 : " + replyDto.toString());
-		if(qnAboardService.registReply(replyDto)) {
-			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
-		}
-		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
-	}
-	
 	@ApiOperation(value = "게시판 글수정", notes = "수정할 게시글 정보를 입력한다. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
 	@PutMapping
 	public ResponseEntity<String> modifyArticle(@RequestBody @ApiParam(value = "수정할 글정보.", required = true) BoardDto boardDto) throws Exception {
@@ -128,4 +112,44 @@ public class QnABoardRestController {
 		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
 	}
 	
+	@GetMapping("/repl/{articleNo}")
+	public ResponseEntity<?> getReply(@PathVariable("articleNo") int articleno) throws Exception {
+		logger.info("getReply - 호출 : " + articleno);
+		return new ResponseEntity<List<ReplyDto>>(qnAboardService.getReply(articleno), HttpStatus.OK);
+	}
+	
+	@PostMapping("/repl")
+	public ResponseEntity<?> registReply(@RequestBody ReplyDto replyDto) throws Exception {
+//		replyDto.setUser_id("admin");
+		logger.info("registReply - 호출 : " + replyDto.toString());
+		if(qnAboardService.registReply(replyDto)) {
+			return new ResponseEntity<List<ReplyDto>>(qnAboardService.getReply(replyDto.getArticle_no()), HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+	}
+
+	
+	@ApiOperation(value = "게시판 글수정", notes = "수정할 게시글 정보를 입력한다. 그리고 DB수정 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+	@PutMapping("/repl")
+	public ResponseEntity<?> modifyReply(@RequestBody @ApiParam(value = "수정할 글정보.", required = true) ReplyDto replyDto) throws Exception {
+		logger.info("modifyReply - 호출 {}", replyDto);
+		
+		if (qnAboardService.modifyReply(replyDto)) {
+			return new ResponseEntity<List<ReplyDto>>(qnAboardService.getReply(replyDto.getArticle_no()), HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.OK);
+	}
+	
+	@ApiOperation(value = "댓글삭제", notes = "글번호에 해당하는 게시글의 해당하는 댓글를 삭제한다. 그리고 DB삭제 성공여부에 따라 'success' 또는 'fail' 문자열을 반환한다.", response = String.class)
+	@DeleteMapping("/repl/{articleNo}/{replyNo}")
+	public ResponseEntity<?> deleteReply(@PathVariable("articleNo") @ApiParam(value = "살제할 댓글의 글번호.", required = true) int articleno,
+			@PathVariable("replyNo") @ApiParam(value = "살제할 글의 댓글번호.", required = true) int replyNo) throws Exception {
+		logger.info("deleteReply - 호출");
+		System.out.println(articleno+" "+replyNo);
+		if (qnAboardService.deleteReply(replyNo)) {
+			return new ResponseEntity<List<ReplyDto>>(qnAboardService.getReply(articleno), HttpStatus.OK);
+		}
+		return new ResponseEntity<String>(FAIL, HttpStatus.NO_CONTENT);
+	}
+
 }

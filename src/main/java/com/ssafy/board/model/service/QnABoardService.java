@@ -19,8 +19,10 @@ public interface QnABoardService {
 	void updateHit(int articleno) throws Exception;
 	boolean modifyArticle(BoardDto boardDto) throws Exception;
 	boolean deleteArticle(int articleno) throws Exception;
+	List<BoardDto> choListArticle(BoardParameterDto boardParameterDto) throws Exception;
 	List<ReplyDto> getReply(int articleno) throws Exception;
 	boolean registReply(ReplyDto replyDto) throws Exception;
-	List<BoardDto> choListArticle(BoardParameterDto boardParameterDto) throws Exception;
+	boolean modifyReply(ReplyDto replyDto) throws Exception;
+	boolean deleteReply(int replyNo) throws Exception;
 	
 }

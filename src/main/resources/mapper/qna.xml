@@ -93,14 +93,20 @@
 		where article_no = #{articleNo}
 	</update>
 	
-	<delete id="deleteMemo" parameterType="int">
-		delete from memo
-		where article_no = #{articleNo}
-	</delete>
-	
 	<delete id="deleteArticle" parameterType="int">
 		delete from qnaboard
 		where article_no = #{articleNo}
+	</delete>
+	
+	<update id="modifyReply" parameterType="replyDto">
+		update memo
+		set comment = #{comment}
+		where memo_no = #{memo_no}
+	</update>
+	
+	<delete id="deleteReply" parameterType="int">
+		delete from memo
+		where memo_no = #{memo_no}
 	</delete>
 
 </mapper>

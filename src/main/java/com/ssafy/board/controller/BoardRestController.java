@@ -96,6 +96,7 @@ public class BoardRestController {
 	@PutMapping
 	public ResponseEntity<?> modifyArticle(@RequestBody @ApiParam(value = "수정할 글정보.", required = true) BoardDto boardDto) throws Exception{
 		logger.info("modifyArticle - 호출 {}", boardDto);
+		System.out.println(boardDto);
 		if(boardService.modifyArticle(boardDto)) {
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 		}
