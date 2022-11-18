@@ -6,6 +6,8 @@ import java.security.NoSuchAlgorithmException;
 import java.security.SecureRandom;
 import java.sql.SQLException;
 import java.util.Base64;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -124,10 +126,34 @@ public class MemberServiceImpl implements MemberService{
 		memberDto.setSalt(salt);
 		memberDto.setUserPwd(hex);
 		memberDao.findpw(memberDto);
-		
-		memberDao.findpw(memberDto);
         return pw;
     }
+	
+	@Override
+	public MemberDto userInfo(String userid) throws Exception {
+		return memberDao.userInfo(userid);
+	}
+
+	@Override
+	public void saveRefreshToken(String userid, String refreshToken) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userid", userid);
+		map.put("token", refreshToken);
+		memberDao.saveRefreshToken(map);
+	}
+
+	@Override
+	public Object getRefreshToken(String userid) throws Exception {
+		return memberDao.getRefreshToken(userid);
+	}
+
+	@Override
+	public void deleRefreshToken(String userid) throws Exception {
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("userid", userid);
+		map.put("token", null);
+		memberDao.deleteRefreshToken(map);
+	}
 	
 	/**
 	  private Session
