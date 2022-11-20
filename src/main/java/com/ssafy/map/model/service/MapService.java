@@ -17,6 +17,7 @@ import com.ssafy.map.model.StarBucksDto;
 public interface MapService {
 
 	ArrayList<AptDto> searchArea(String regCode) throws SQLException;
+
 	ArrayList<DealDto> searchApt(String aptCode) throws SQLException;
 
 	ArrayList<InterDto> getInterDto(String userId) throws SQLException;
@@ -37,7 +38,8 @@ public interface MapService {
 
 	List<SidoGugunCodeDto> getDongInGugun(String gugun) throws Exception;
 
-//	StarBucksDto getCoffeeDto(Map<String, String> map) throws SQLException;
-//
-//	MetroDto getMetroDto(Map<String, String> map) throws SQLException;
+	StarBucksDto getCoffee(Map<String, String> map) throws SQLException;
+
+	MetroDto getMetro(Map<String, String> map) throws SQLException;
+
 }

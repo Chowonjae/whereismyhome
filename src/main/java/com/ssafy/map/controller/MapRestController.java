@@ -22,7 +22,9 @@ import com.ssafy.map.model.CoronaDto;
 import com.ssafy.map.model.DealDto;
 import com.ssafy.map.model.HospitalDto;
 import com.ssafy.map.model.InterDto;
+import com.ssafy.map.model.MetroDto;
 import com.ssafy.map.model.SidoGugunCodeDto;
+import com.ssafy.map.model.StarBucksDto;
 import com.ssafy.map.model.service.MapService;
 
 import io.swagger.annotations.ApiParam;
@@ -120,6 +122,30 @@ public class MapRestController {
 			mapService.delinter(map);
 			List<InterDto> list = mapService.getInterDto(map.get("userId"));
 			return new ResponseEntity<List<InterDto>>(list, HttpStatus.OK);
+		} catch (Exception e) {
+			return exceptionHandling(e);
+		}
+	}
+	@GetMapping(value = "/coffee/{lat}/{lng}")
+	public ResponseEntity<?> getCoffee(@PathVariable String lat, @PathVariable String lng){
+		try {
+			Map<String,String> map = new HashMap<String,String>();
+			map.put("lat", lat);
+			map.put("lng", lng);
+			StarBucksDto ans = mapService.getCoffee(map);
+			return new ResponseEntity<StarBucksDto>(ans, HttpStatus.OK);
+		} catch (Exception e) {
+			return exceptionHandling(e);
+		}
+	}
+	@GetMapping(value = "/metro/{lat}/{lng}")
+	public ResponseEntity<?> getMetro(@PathVariable String lat, @PathVariable String lng){
+		try {
+			Map<String,String> map = new HashMap<String,String>();
+			map.put("lat", lat);
+			map.put("lng", lng);
+			MetroDto ans = mapService.getMetro(map);
+			return new ResponseEntity<MetroDto>(ans, HttpStatus.OK);
 		} catch (Exception e) {
 			return exceptionHandling(e);
 		}

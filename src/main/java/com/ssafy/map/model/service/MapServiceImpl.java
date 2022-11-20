@@ -2,7 +2,6 @@ package com.ssafy.map.model.service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
@@ -15,7 +14,9 @@ import com.ssafy.map.model.CoronaDto;
 import com.ssafy.map.model.DealDto;
 import com.ssafy.map.model.HospitalDto;
 import com.ssafy.map.model.InterDto;
+import com.ssafy.map.model.MetroDto;
 import com.ssafy.map.model.SidoGugunCodeDto;
+import com.ssafy.map.model.StarBucksDto;
 import com.ssafy.map.model.dao.MapDao;
 
 @Service
@@ -42,13 +43,13 @@ public class MapServiceImpl implements MapService {// 여기서 무엇을 하느
 	public ArrayList<AptDto> searchArea(String regCode) throws SQLException {
 		// TODO Auto-generated method stub
 		ArrayList<AptDto> list = mapDao.searchArea(regCode);
-		Map<String, String> map = new HashMap<String, String>();
-		for (AptDto mapDto : list) {
-			map.put("lat", mapDto.getLat());
-			map.put("lng", mapDto.getLng());
-			mapDto.setCoffee(mapDao.getCoffee(map));
-			mapDto.setMetro(mapDao.getMetro(map));
-		}
+//		Map<String, String> map = new HashMap<String, String>();
+//		for (AptDto mapDto : list) {
+//			map.put("lat", mapDto.getLat());
+//			map.put("lng", mapDto.getLng());
+//			mapDto.setCoffee(mapDao.getCoffee(map));
+//			mapDto.setMetro(mapDao.getMetro(map));
+//		}
 		return list;
 	}
 
@@ -186,6 +187,14 @@ public class MapServiceImpl implements MapService {// 여기서 무엇을 하느
 	@Override
 	public ArrayList<HospitalDto> hospital(String gugun) throws SQLException {
 		return mapDao.hospital(gugun);
+	}
+	@Override
+	public StarBucksDto getCoffee(Map<String, String> map) throws SQLException {
+		return mapDao.getCoffee(map);
+	}
+	@Override
+	public MetroDto getMetro(Map<String, String> map) throws SQLException {
+		return mapDao.getMetro(map);
 	}
 
 }
