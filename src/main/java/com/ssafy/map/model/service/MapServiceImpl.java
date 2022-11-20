@@ -196,5 +196,13 @@ public class MapServiceImpl implements MapService {// 여기서 무엇을 하느
 	public MetroDto getMetro(Map<String, String> map) throws SQLException {
 		return mapDao.getMetro(map);
 	}
+	@Override
+	public List<StarBucksDto> getCoffees() throws SQLException {
+		return mapDao.getCoffees();
+	}
+	@Override
+	public List<MetroDto> getMetros() throws SQLException {
+		return mapDao.getMetros();
+	}
 
 }

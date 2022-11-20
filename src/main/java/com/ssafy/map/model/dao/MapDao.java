@@ -42,4 +42,7 @@ public interface MapDao {
 	StarBucksDto getCoffee(Map<String, String> map) throws SQLException;
 
 	MetroDto getMetro(Map<String, String> map) throws SQLException;
+	List<StarBucksDto> getCoffees() throws SQLException;
+	
+	List<MetroDto> getMetros() throws SQLException;
 }

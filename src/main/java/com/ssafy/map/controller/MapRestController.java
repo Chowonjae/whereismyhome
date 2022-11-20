@@ -150,6 +150,24 @@ public class MapRestController {
 			return exceptionHandling(e);
 		}
 	}
+	@GetMapping(value = "/coffee")
+	public ResponseEntity<?> getCoffees(){
+		try {
+			List<StarBucksDto> ans = mapService.getCoffees();
+			return new ResponseEntity<List<StarBucksDto>>(ans, HttpStatus.OK);
+		} catch (Exception e) {
+			return exceptionHandling(e);
+		}
+	}
+	@GetMapping(value = "/metro")
+	public ResponseEntity<?> getMetros(){
+		try {
+			List<MetroDto> ans = mapService.getMetros();
+			return new ResponseEntity<List<MetroDto>>(ans, HttpStatus.OK);
+		} catch (Exception e) {
+			return exceptionHandling(e);
+		}
+	}
 	
 	//병원
 	@GetMapping(value = "/hospital/{gugun}")

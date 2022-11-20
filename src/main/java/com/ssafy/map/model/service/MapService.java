@@ -42,4 +42,8 @@ public interface MapService {
 
 	MetroDto getMetro(Map<String, String> map) throws SQLException;
 
+	List<StarBucksDto> getCoffees() throws SQLException;
+
+	List<MetroDto> getMetros() throws SQLException;
+
 }

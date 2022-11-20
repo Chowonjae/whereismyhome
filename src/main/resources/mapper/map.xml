@@ -90,5 +90,15 @@
 		order by dist
 		limit 1
 	</select>	
+	<select id="getCoffees" resultType="starBucksDto" >
+		select name, lat,lng
+		from starbucks
+
+	</select>
+	
+	<select id="getMetros" resultType="metroDto">
+		select name, lat,lng
+		from metro
+	</select>	
 	
 </mapper>
