@@ -55,7 +55,7 @@ public class NewsRestController {
 				}
 				String[] content = option.select("dd").text().split("\\.\\.\\.");
 				news.setContent(content[0].concat("..."));
-				news.setBrand(content[0].split(" ")[0]);
+				news.setBrand(content[1].split(" ")[0]);
 				
 				list.add(news);
 			}
