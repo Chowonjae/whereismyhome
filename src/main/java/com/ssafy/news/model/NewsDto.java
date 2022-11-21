@@ -20,4 +20,5 @@ public class NewsDto {
 	private String date;
 	private String url;
 	private String content;
+	private String brand;
 }

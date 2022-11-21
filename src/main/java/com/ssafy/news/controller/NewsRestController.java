@@ -1,6 +1,7 @@
 package com.ssafy.news.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.jsoup.Jsoup;
@@ -52,7 +53,9 @@ public class NewsRestController {
 					news.setTitle(option.select("a").text());
 					
 				}
-				news.setContent(option.select("dd").text());
+				String[] content = option.select("dd").text().split("\\.\\.\\.");
+				news.setContent(content[0].concat("..."));
+				news.setBrand(content[0].split(" ")[0]);
 				
 				list.add(news);
 			}
