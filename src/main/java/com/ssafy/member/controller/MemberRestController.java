@@ -10,13 +10,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.ssafy.member.model.MemberDto;
@@ -67,6 +70,7 @@ public class MemberRestController {
 	@PostMapping
 	public ResponseEntity<?> memberRegister(@RequestBody MemberDto memberDto){
 		try {
+			System.out.println(memberDto.toString());
 			memberService.joinMember(memberDto);
 			return new ResponseEntity<String>(SUCCESS, HttpStatus.CREATED);
 		} catch (Exception e) {
@@ -175,8 +179,21 @@ public class MemberRestController {
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
 	
-	@DeleteMapping("/delete/{userid}")
+	@PutMapping("/mypage")
+	public ResponseEntity<?> updateUser(@RequestBody MemberDto memberDto) {
+		try {
+			memberService.modifyMember(memberDto);
+			return new ResponseEntity<String>(SUCCESS, HttpStatus.CREATED);
+		} catch (Exception e) {
+			return exceptionHandling(e);
+		}
+	}
+	
+	@Transactional
+	@DeleteMapping("/{userid}")
 	public ResponseEntity<?> delete(@PathVariable("userid") String userid){
+		System.out.println(12333123);
+		System.out.println(userid);
 		Map<String, Object> resultMap = new HashMap<>();
 		HttpStatus status = HttpStatus.ACCEPTED;
 		try {

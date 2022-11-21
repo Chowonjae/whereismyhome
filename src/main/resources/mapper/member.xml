@@ -42,7 +42,7 @@
 
 	<update id="modifyMember" parameterType="memberDto">
 		update members
-		set user_password = #{userPwd}, email_id = #{emailId}, email_domain = #{emailDomain}
+		set user_password = #{userPwd}, email_id = #{emailId}, email_domain = #{emailDomain}, salt = #{salt}
 		where user_id = #{userId}
 	</update>
 	

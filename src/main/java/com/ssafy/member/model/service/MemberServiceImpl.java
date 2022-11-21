@@ -91,7 +91,7 @@ public class MemberServiceImpl implements MemberService{
 	    String rawAndSalt = pw+salt;
 	    
 	    MessageDigest md = MessageDigest.getInstance("SHA-256");
-	    
+	    System.out.println(memberDto.getUserPwd());
 	    // 평문+salt 암호화
 	    md.update(rawAndSalt.getBytes());
 	    hex = String.format("%064x", new BigInteger(1, md.digest()));
