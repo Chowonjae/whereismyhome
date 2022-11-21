@@ -39,12 +39,18 @@ public class NewsRestController {
 			Elements blogOption = rawData.select(".headline_list li");
 			
 			for(Element option : blogOption) {
+				//System.out.println(option);
 				NewsDto news = new NewsDto();
 				//news.setDate(option.select(".date").text());
 				news.setDate(option.select(".date").text());
 				news.setUrl("https://land.naver.com"+option.select(".photo a").attr("href"));
 				news.setImgUrl(option.select(".photo a img").attr("src"));
 				news.setTitle(option.select(".photo a img").attr("alt"));
+				if(news.getImgUrl()=="") {
+					news.setImgUrl("https://www.missioninfra.net/img/noimg/noimg_fac.gif");
+					news.setTitle(option.select("a").text());
+					
+				}
 				news.setContent(option.select("dd").text());
 				
 				list.add(news);
