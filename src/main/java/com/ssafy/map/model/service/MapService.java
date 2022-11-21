@@ -5,12 +5,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import com.ssafy.map.model.AptDto;
 import com.ssafy.map.model.CoronaDto;
 import com.ssafy.map.model.DealDto;
 import com.ssafy.map.model.HospitalDto;
 import com.ssafy.map.model.InterDto;
-import com.ssafy.map.model.AptDto;
 import com.ssafy.map.model.MetroDto;
+import com.ssafy.map.model.SchoolDto;
 import com.ssafy.map.model.SidoGugunCodeDto;
 import com.ssafy.map.model.StarBucksDto;
 
@@ -42,6 +43,10 @@ public interface MapService {
 
 	MetroDto getMetro(Map<String, String> map) throws SQLException;
 
+	SchoolDto getSchool(Map<String, String> map) throws SQLException;
+
+	List<SchoolDto> getSchools(String dongCode) throws SQLException;
+	
 	List<StarBucksDto> getCoffees() throws SQLException;
 
 	List<MetroDto> getMetros() throws SQLException;

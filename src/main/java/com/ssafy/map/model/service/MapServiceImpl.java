@@ -15,6 +15,7 @@ import com.ssafy.map.model.DealDto;
 import com.ssafy.map.model.HospitalDto;
 import com.ssafy.map.model.InterDto;
 import com.ssafy.map.model.MetroDto;
+import com.ssafy.map.model.SchoolDto;
 import com.ssafy.map.model.SidoGugunCodeDto;
 import com.ssafy.map.model.StarBucksDto;
 import com.ssafy.map.model.dao.MapDao;
@@ -196,6 +197,16 @@ public class MapServiceImpl implements MapService {// 여기서 무엇을 하느
 	public MetroDto getMetro(Map<String, String> map) throws SQLException {
 		return mapDao.getMetro(map);
 	}
+
+	@Override
+	public SchoolDto getSchool(Map<String, String> map) throws SQLException {
+		return mapDao.getSchool(map);
+	}
+	@Override
+	public List<SchoolDto> getSchools(String dongCode) throws SQLException {
+		return mapDao.getSchools(dongCode);
+	}
+	
 	@Override
 	public List<StarBucksDto> getCoffees() throws SQLException {
 		return mapDao.getCoffees();

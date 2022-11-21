@@ -89,6 +89,22 @@
 		order by dist
 		limit 1
 	</select>	
+
+	<select id="getSchool" parameterType="map" resultType="schoolDto">
+		select name, lat,lng, st_distance_sphere(point(#{lng},#{lat}),point(lng,lat)) as dist
+		from schools
+		where <![CDATA[st_distance_sphere(point(#{lng},#{lat}),point(lng,lat))<=1000]]>
+		order by dist
+		limit 1
+	</select>	
+
+	<select id="getSchools" parameterType="String" resultType="schoolDto" >
+		select name, lat,lng
+		from schools
+		where dongCode = #{dongCode}
+
+	</select>
+
 	<select id="getCoffees" resultType="starBucksDto" >
 		select name, lat,lng
 		from starbucks

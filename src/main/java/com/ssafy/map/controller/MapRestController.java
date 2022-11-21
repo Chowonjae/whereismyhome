@@ -23,6 +23,7 @@ import com.ssafy.map.model.DealDto;
 import com.ssafy.map.model.HospitalDto;
 import com.ssafy.map.model.InterDto;
 import com.ssafy.map.model.MetroDto;
+import com.ssafy.map.model.SchoolDto;
 import com.ssafy.map.model.SidoGugunCodeDto;
 import com.ssafy.map.model.StarBucksDto;
 import com.ssafy.map.model.service.MapService;
@@ -150,6 +151,29 @@ public class MapRestController {
 			return exceptionHandling(e);
 		}
 	}
+	
+	@GetMapping(value = "/school/{lat}/{lng}")
+	public ResponseEntity<?> getSchool(@PathVariable String lat, @PathVariable String lng){
+		try {
+			Map<String,String> map = new HashMap<String,String>();
+			map.put("lat", lat);
+			map.put("lng", lng);
+			SchoolDto ans = mapService.getSchool(map);
+			return new ResponseEntity<SchoolDto>(ans, HttpStatus.OK);
+		} catch (Exception e) {
+			return exceptionHandling(e);
+		}
+	}
+	@GetMapping(value = "/school/{dongCode}")
+	public ResponseEntity<?> getSchools(@PathVariable String dongCode){
+		try {
+			List<SchoolDto> ans = mapService.getSchools(dongCode);
+			return new ResponseEntity<List<SchoolDto>>(ans, HttpStatus.OK);
+		} catch (Exception e) {
+			return exceptionHandling(e);
+		}
+	}
+	
 	@GetMapping(value = "/coffee")
 	public ResponseEntity<?> getCoffees(){
 		try {
