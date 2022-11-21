@@ -47,6 +47,7 @@ public class NewsRestController {
 				news.setImgUrl(option.select(".photo a img").attr("src"));
 				news.setTitle(option.select(".photo a img").attr("alt"));
 				if(news.getImgUrl()=="") {
+					news.setUrl("https://land.naver.com"+option.select("a").attr("href"));
 					news.setImgUrl("https://www.missioninfra.net/img/noimg/noimg_fac.gif");
 					news.setTitle(option.select("a").text());
 					
