@@ -34,8 +34,7 @@
 		select no,aptCode,area, dealAmount, dealYear, dealMonth, dealDay
 		from housedeal
 		where aptCode = #{aptCode}
-		order by dealYear desc, dealMonth desc, dealDay desc
-		limit 8;
+		order by dealYear,dealMonth, dealDay
 	</select>	
 	<select id="getInterDto" parameterType="String" resultType="interDto">
 		select * from inter_area
