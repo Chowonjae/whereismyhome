@@ -56,11 +56,13 @@ public class MemberRestController {
 	// 비밀번호 찾기
 	@PostMapping(value = "/findpw")
 	public ResponseEntity<?> findpw(@RequestBody MemberDto memberDto){
-		Map<String, Object> resultMap = new HashMap<>();
 		try {
-			String tempPw = memberService.findpw(memberDto);
-			resultMap.put("pwd", tempPw);
-			return new ResponseEntity<Map<String, Object>>(resultMap, HttpStatus.OK);
+			String result = memberService.findpw(memberDto);
+			if(result.equals(SUCCESS)) {
+				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+			}else {
+				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+			}
 		}catch(Exception e) {
 			return exceptionHandling(e);
 		}
