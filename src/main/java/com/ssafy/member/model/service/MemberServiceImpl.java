@@ -116,6 +116,7 @@ public class MemberServiceImpl implements MemberService{
     public String findpw(MemberDto memberDto) throws SQLException, NoSuchAlgorithmException {
 		String pw = makeRand();
 		String hex = "";
+		String result = "";
 		
 		SecureRandom random = SecureRandom.getInstance("SHA1PRNG");
 		byte[] bytes = new byte[16];
@@ -130,13 +131,17 @@ public class MemberServiceImpl implements MemberService{
 		hex = String.format("%064x", new BigInteger(1, md.digest()));
 		memberDto.setSalt(salt);
 		memberDto.setUserPwd(hex);
-		memberDao.findpw(memberDto);
+		int cnt = memberDao.findUser(memberDto);
+		if(cnt > 0) {	// 회원정보 있음
+			result = "success";
+			String email = memberDto.getEmailId() + "@" + memberDto.getEmailDomain();
+			sendMail(memberDto.getUserName(), memberDto.getUserId(), pw, email);
+			memberDao.findpw(memberDto);	// 비밀번호 변경
+		}else {
+			result = "fail";
+		}
 		
-		String email = memberDto.getEmailId() + "@" + memberDto.getEmailDomain();
-		
-		sendMail(memberDto.getUserName(), memberDto.getUserId(), pw, email);
-//		
-        return "success";
+        return result;
     }
 	
 	@Override
@@ -189,12 +194,11 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	private void sendMail(String name, String id, String pwd, String email) {
-		String msg = "안녕하세요. FIND HOME 임시비밀번호 안내 이메일 입니다." + name + "(" + id + ")" + "회원님의 임시 비밀번호는 " + pwd + " 입니다. 로그인 후에 비밀번호를 반드시 변경해 주세요!";
+		String msg = "안녕하세요. FIND HOME 임시비밀번호 안내 이메일 입니다. \n" + name + "(" + id + ")" + "회원님의 임시 비밀번호는 " + pwd + " 입니다. 로그인 후에 비밀번호를 반드시 변경해 주세요!";
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(email);
 		message.setSubject("FIND HOME - FIND PASSWORD");
 		message.setText(msg);
-		message.setFrom("noreply@gmail.com");
 		mailSender.send(message);
 	}
 }

@@ -58,10 +58,11 @@ public class MemberRestController {
 	public ResponseEntity<?> findpw(@RequestBody MemberDto memberDto){
 		try {
 			String result = memberService.findpw(memberDto);
+			System.out.println("RESULT : " + result);
 			if(result.equals(SUCCESS)) {
 				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
 			}else {
-				return new ResponseEntity<String>(SUCCESS, HttpStatus.OK);
+				return new ResponseEntity<String>(FAIL, HttpStatus.OK);
 			}
 		}catch(Exception e) {
 			return exceptionHandling(e);

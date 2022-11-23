@@ -35,6 +35,12 @@
 		where user_id = #{userId} and user_password = #{userPwd}
 	</select>
 	
+	<select id="findUser" parameterType="memberDto" resultType="int">
+		select count(*)
+		from members
+		where email_id = #{emailId} and email_domain = #{emailDomain} and user_id = #{userId} and user_name = #{userName}
+	</select>
+	
 	<insert id="joinMember" parameterType="memberDto">
 		insert into members (user_name, user_id, user_password, salt, email_id, email_domain, join_date)
 		values (#{userName}, #{userId}, #{userPwd}, #{salt}, #{emailId}, #{emailDomain}, now())
