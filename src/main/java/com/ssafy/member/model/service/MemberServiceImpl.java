@@ -201,4 +201,15 @@ public class MemberServiceImpl implements MemberService{
 		message.setText(msg);
 		mailSender.send(message);
 	}
+	
+	//api
+	
+	@Override
+	public int ApiJoinMember(MemberDto memberDto) throws Exception {
+
+	    memberDao.apiJoinMember(memberDto);
+
+		return 0;
+	}
+
 }

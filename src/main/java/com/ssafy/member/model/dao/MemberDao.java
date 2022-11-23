@@ -27,4 +27,7 @@ public interface MemberDao {
 	void deleteRefreshToken(Map<String, String> map) throws SQLException;
 	int findUser(MemberDto memberDto) throws SQLException;
 	
+	//api
+	int apiJoinMember(MemberDto memberDto) throws SQLException;
+	
 }

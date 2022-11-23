@@ -209,7 +209,28 @@ public class MemberRestController {
 		}
 		return new ResponseEntity<Map<String, Object>>(resultMap, status);
 	}
+	//api
 	
+	// 회원가입
+	@Transactional
+	@PostMapping("/kakao")
+	public ResponseEntity<?> apiJoinMember(@RequestBody MemberDto memberDto){
+		System.out.println(memberDto);
+		MemberDto user;
+		try {
+			user = memberService.userInfo(memberDto.getUserId());
+			if(user==null) {
+				memberService.ApiJoinMember(memberDto);				
+				user = memberService.userInfo(memberDto.getUserId());
+			}
+			//String refreshToken = jwtService.createRefreshToken("userid", memberDto.getUserId());// key, data
+			//memberService.saveRefreshToken(memberDto.getUserId(), refreshToken);
+			System.out.println(user);
+			return new ResponseEntity<MemberDto>(user, HttpStatus.CREATED);
+		} catch (Exception e) {
+			return exceptionHandling(e);
+		}
+	}
 	private ResponseEntity<String> exceptionHandling(Exception e) {
 		e.printStackTrace();
 		return new ResponseEntity<String>("Error : " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);

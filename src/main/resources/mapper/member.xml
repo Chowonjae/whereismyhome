@@ -8,7 +8,8 @@
 	private String emailId;
 	private String emailDomain;
 	private String joinDate;
-	private String salt; -->
+	private String salt;
+	private String type; -->
 <mapper namespace="com.ssafy.member.model.dao.MemberDao">
 
 	<resultMap type="memberDto" id="member">
@@ -30,7 +31,7 @@
 	</select>
 	
 	<select id="getUserInfo" parameterType="memberDto" resultMap="member">
-		select user_id, user_name, email_id, email_domain, join_date
+		select user_id, user_name, email_id, email_domain, join_date,type
 		from members
 		where user_id = #{userId} and user_password = #{userPwd}
 	</select>
@@ -45,7 +46,7 @@
 		insert into members (user_name, user_id, user_password, salt, email_id, email_domain, join_date)
 		values (#{userName}, #{userId}, #{userPwd}, #{salt}, #{emailId}, #{emailDomain}, now())
 	</insert>
-
+	
 	<update id="modifyMember" parameterType="memberDto">
 		update members
 		set user_password = #{userPwd}, email_id = #{emailId}, email_domain = #{emailDomain}, salt = #{salt}
@@ -65,7 +66,7 @@
 	
 	<!-- jwt -->
 	<select id="userInfo" parameterType="string" resultMap="member">
-		select user_name, user_id, email_id, email_domain, join_date
+		select user_name, user_id, email_id, email_domain, join_date,type
 		from members
 		where user_id = #{userId}
 	</select>
@@ -87,5 +88,10 @@
 		set token = #{token, jdbcType=VARCHAR}
 		where user_id = #{userId}
 	</update>
+	
+	<insert id="apiJoinMember" parameterType="memberDto">
+		insert into members (user_name, user_id, email_id, email_domain, join_date,type)
+		values (#{userName}, #{userId}, #{emailId}, #{emailDomain}, now(),#{type})
+	</insert>
 	
 </mapper>

@@ -22,4 +22,5 @@ public class MemberDto {
 	private String emailDomain;
 	private String joinDate;
 	private String salt;
+	private String type;
 }
