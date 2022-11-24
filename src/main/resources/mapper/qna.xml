@@ -25,7 +25,7 @@
 	</insert>
 	
 	<select id="listArticle" parameterType="boardParameterDto" resultMap="article">
-		select b.article_no, b.user_id, b.subject, b.content, b.hit, m.user_name, b.register_time
+		select b.article_no, b.user_id, b.subject, b.content, b.hit, m.user_name, date_format(b.register_time, '%Y.%m.%d') as register_time
 		from qnaboard b, members m
 		where b.user_id = m.user_id
 		<if test="word != null and word != ''">

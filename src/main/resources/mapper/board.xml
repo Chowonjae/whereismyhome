@@ -59,7 +59,7 @@
 	</sql>
 
 	<select id="listArticle" parameterType="boardParameterDto" resultMap="article">
-		select b.article_no, b.user_id, b.subject, b.content, b.hit, b.register_time, m.user_name
+		select b.article_no, b.user_id, b.subject, b.content, b.hit, m.user_name, date_format(b.register_time, '%Y.%m.%d') as register_time
 		from board b, members m 
 		where b.user_id = m.user_id
 		<include refid="search"></include>
