@@ -1,92 +1,118 @@
-# Whereismyhome07
+# whereismyhome_20221012_final
+
+- 회원정보 등록, 수정, 조회, 탈퇴 및 공지사항 등록, 수정, 조회, 삭제는 whereishome_final 폴더에서의 기능과 동일하다.
+
+- 다운받아서 실행하고자 할 경우 resources의 파일들을 활용한다.(sql 파일은 ssafyweb 먼저 실행해야 한다.)
+
+- **알고리즘 3개를 추가했으며 기획서는 resources/paper 안에 있다.**
+
+## 1012_Update
+
+### 알고리즘 #1 (초성 검색)
+
+<img src="images/cho.PNG" alt="img14" width="700px"></img>
+
+### 알고리즘 #2 (선별진료소 목록 최적화)
+
+<img src="images/covied.png" alt="img14" width="700px"></img>
+
+### 알고리즘 #3 (비밀번호 해싱)
+
+<img src="images/hash.PNG" alt="img14" width="700px"></img>
+
+-------------------------------------------------------
+
+## 초기상태
+
+- 공지사항 비어있음.
+- (ssafy,1234) 또는 (admin,1234)로 로그인이 가능하다.
+- 관심지역 비어있음.
+
+## 메인페이지
+
+<img src="/images/1.png" alt="img1" width="700px"></img>
+
+### 메인페이지에서 검색
+
+<img src="/images/2.png" alt="img2" width="700px"></img>
+
+- 선택 후 검색버튼을 클릭하면
+  아파트 검색 페이지로 이동
+- 상단의 HomeSearch 버튼을 클릭해도 아파트 검색 페이지로 이동한다.
+
+## 아파트 검색 페이지
+
+### 초기화면
+
+<img src="images/8.png" alt="img8" width="700px"></img>
+
+### 매매정보 가져오기 버튼 클릭 시
+
+- 동까지 입력이 되었을 때
+- 매매월까지 다 입력이 되었을 때
+
+이 두가지의 경우로 매매정보를 가져올 수 있다.
+
+<img src="images/3.png" alt="img3" width="700px"></img>
+
+### 아파트 리스트에서 선택시
+
+- 그 아파트 중심으로 확대되며 그 아파트의 이름과 주소, 건축년도가 나타난다.
+
+  <img src="images/4.png" alt="img4" width="700px"></img>
+
+### 관심지역 설정
+
+- 시도, 구군, 동까지 필수입력 후 관심지역등록 버튼을 클릭시 관심지역으로 등록이되며 중간부분에 관심지역 버튼이 생겨나며 그 지역으로 검색이 이루어진다.
+
+  <img src="images/5.png" alt="img5" width="700px"></img>
+  <img src="images/6.png" alt="img6" width="700px"></img>
+
+### 관심지역 삭제
+
+- 관심지역 버튼의 X를 누르면 삭제가 이루어지며 초기화면으로 돌아간다.
+
+  <img src="images/7.png" alt="img7" width="700px"></img>
+  <img src="images/8.png" alt="img8" width="700px"></img>
+
+### 관심지역 클릭
+
+- 관심지역 버튼 클릭 시 그 주소의 모든 매매내역이 검색된다.
+
+  <img src="images/3.png" alt="img3" width="700px"></img>
+
+## 코로나 선별진료소 검색 페이지
+
+- 상단의 Corona 버튼 클릭 선별진료소 검색 페이지로 이동한다.
+
+### 초기화면
+
+<img src="images/11.png" alt="img11" width="700px"></img>
+
+### 선별진료소 정보 가져오기 버튼 클릭 시
+
+- 동까지 입력이 되었을 때 선별진료소 정보를 가져올 수 있다.
+- 리스트에는 선별진료소 이름, 주소, 요일별 운영시간, 전화번호가 표시된다.
+
+<img src="images/12.png" alt="img12" width="700px"></img>
+
+<img src="images/13.png" alt="img13" width="700px"></img>
+
+## 안심진료병원 페이지
+
+- 상단의 Hospital 버튼 클릭 선별진료소 검색 페이지로 이동한다.
+
+### 초기화면
+
+<img src="images/14.png" alt="img14" width="700px"></img>
+
+### 안심진료병원 정보 가져오기 버튼 클릭 시
+
+- 동까지 입력이 되었을 때 진료병원 정보를 가져올 수 있다.
+- 리스트에는 병원의 이름, 주소, 진료 유형, 전화번호가 표시된다.
+
+<img src="images/15.png" alt="img15" width="700px"></img>
+
+<img src="images/16.png" alt="img16" width="700px"></img>
 
 
-
-## Getting started
-
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
-
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
-```
-cd existing_repo
-git remote add origin https://lab.ssafy.com/whereismyhome_20221102/whereismyhome07.git
-git branch -M master
-git push -uf origin master
-```
-
-## Integrate with your tools
-
-- [ ] [Set up project integrations](https://lab.ssafy.com/whereismyhome_20221102/whereismyhome07/-/settings/integrations)
-
-## Collaborate with your team
-
-- [ ] [Invite team members and collaborators](https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Enable merge request approvals](https://docs.gitlab.com/ee/user/project/merge_requests/approvals/)
-- [ ] [Automatically merge when pipeline succeeds](https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
-
-## Test and Deploy
-
-Use the built-in continuous integration in GitLab.
-
-- [ ] [Get started with GitLab CI/CD](https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://docs.gitlab.com/ee/user/clusters/agent/)
-- [ ] [Set up protected environments](https://docs.gitlab.com/ee/ci/environments/protected_environments.html)
-
-***
-
-# Editing this README
-
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!). Thank you to [makeareadme.com](https://www.makeareadme.com/) for this template.
-
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
-
-## Name
-Choose a self-explaining name for your project.
-
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
-
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
-
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
-
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
-
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
-
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
-
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
-
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
-
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
-
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
-
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
-
-## License
-For open source projects, say how it is licensed.
-
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
